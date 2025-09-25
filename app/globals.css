@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  /* Gaming Theme - Cyberpunk/Neon */
+  /* GamerFit Nexus Design System */
   --color-bg: hsl(230, 15%, 10%);
   --color-fg: hsl(220, 10%, 95%);
   --color-accent: hsl(160, 70%, 45%);
