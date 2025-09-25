@@ -1,0 +1,14 @@
+{
+  "name": "GamerFit Nexus",
+  "description": "GamerFit Nexus is a Base Mini App built with Zara.",
+  "image": "https://dummyimage.com/1200x628/0a0b0d/ffffff.png&text=OG",
+  "external_url": "https://bf183bdb-2f86-424e-a982-03acc84fa21e.vercel.app",
+  "properties": {
+    "app": {
+      "name": "GamerFit Nexus",
+      "description": "GamerFit Nexus is a Base Mini App built with Zara.",
+      "url": "https://bf183bdb-2f86-424e-a982-03acc84fa21e.vercel.app",
+      "icon": "https://0co.to/images/zara-2.png"
+    }
+  }
+}

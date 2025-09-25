@@ -1,0 +1,30 @@
+{
+  "accountAssociation": {
+    "header": "",
+    "payload": "",
+    "signature": ""
+  },
+  "frame": {
+    "version": "1",
+    "name": "GamerFit Nexus",
+    "subtitle": "Built with Zara",
+    "description": "GamerFit Nexus is a Base Mini App built with Zara.",
+    "iconUrl": "https://0co.to/images/zara-2.png",
+    "homeUrl": "https://bf183bdb2f86424ea98203acc84fa21e-lsrl.vercel.app",
+    "splashImageUrl": "https://bf183bdb2f86424ea98203acc84fa21e-lsrl.vercel.app/splash.png",
+    "splashBackgroundColor": "#000000",
+    "heroImageUrl": "https://bf183bdb2f86424ea98203acc84fa21e-lsrl.vercel.app/image.png",
+    "tagline": "GamerFit Nexus",
+    "screenshotUrls": [
+      "https://bf183bdb2f86424ea98203acc84fa21e-lsrl.vercel.app/screenshot.png",
+      "https://bf183bdb2f86424ea98203acc84fa21e-lsrl.vercel.app/screenshot.png"
+    ],
+    "primaryCategory": "social",
+    "tags": [
+      "base",
+      "miniapp",
+      "onchainkit"
+    ],
+    "webhookUrl": "https://bf183bdb2f86424ea98203acc84fa21e-lsrl.vercel.app/api/webhook"
+  }
+}
