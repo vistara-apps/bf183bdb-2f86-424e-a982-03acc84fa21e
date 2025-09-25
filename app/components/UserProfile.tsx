@@ -5,6 +5,7 @@ import { User, Trophy, Zap, Target } from 'lucide-react';
 import { calculateLevel, getXpForNextLevel, formatNumber } from '@/lib/utils';
 import { ConnectWallet, Wallet } from '@coinbase/onchainkit/wallet';
 import { Name, Avatar, Identity } from '@coinbase/onchainkit/identity';
+import { useAppStore } from '@/lib/store';
 
 interface UserStats {
   level: number;
@@ -14,14 +15,18 @@ interface UserStats {
 }
 
 export function UserProfile() {
-  const [userStats, setUserStats] = useState<UserStats>({
-    level: 1,
-    xp: 150,
-    workoutsCompleted: 3,
-    streakDays: 2
-  });
+  const user = useAppStore((state) => state.user);
+  const xpProgress = useAppStore((state) => state.getXpToNextLevel());
+  const unlockedAchievements = useAppStore((state) => state.unlockedAchievements);
+  const achievements = useAppStore((state) => state.achievements);
 
-  const xpProgress = getXpForNextLevel(userStats.xp);
+  // Calculate user stats from store
+  const userStats: UserStats = {
+    level: user?.level || 1,
+    xp: user?.xp || 0,
+    workoutsCompleted: 3, // TODO: Calculate from userProgress
+    streakDays: 2 // TODO: Calculate from userProgress
+  };
 
   return (
     <div className="space-y-6">
@@ -90,25 +95,30 @@ export function UserProfile() {
           Recent Achievements
         </h3>
         
-        <div className="space-y-3">
-          <div className="flex items-center space-x-3 p-3 bg-surface bg-opacity-60 rounded-lg">
-            <div className="text-2xl">🏃‍♂️</div>
-            <div className="flex-1">
-              <div className="font-medium text-fg">First Steps</div>
-              <div className="text-sm text-text-secondary">Completed your first workout</div>
-            </div>
-            <div className="achievement-badge">+100 XP</div>
+        {unlockedAchievements.length > 0 ? (
+          <div className="space-y-3">
+            {unlockedAchievements.slice(-2).map((achievementId) => {
+              const achievement = achievements.find(a => a.achievementId === achievementId);
+              if (!achievement) return null;
+
+              return (
+                <div key={achievementId} className="flex items-center space-x-3 p-3 bg-surface bg-opacity-60 rounded-lg">
+                  <div className="text-2xl">{achievement.iconUrl}</div>
+                  <div className="flex-1">
+                    <div className="font-medium text-fg">{achievement.name}</div>
+                    <div className="text-sm text-text-secondary">{achievement.description}</div>
+                  </div>
+                  <div className="achievement-badge">+{achievement.xpReward} XP</div>
+                </div>
+              );
+            })}
           </div>
-          
-          <div className="flex items-center space-x-3 p-3 bg-surface bg-opacity-60 rounded-lg">
-            <div className="text-2xl">🤝</div>
-            <div className="flex-1">
-              <div className="font-medium text-fg">Social Gamer</div>
-              <div className="text-sm text-text-secondary">Shared a workout with the community</div>
-            </div>
-            <div className="achievement-badge">+75 XP</div>
+        ) : (
+          <div className="text-center py-8 text-text-secondary">
+            <Trophy className="w-12 h-12 mx-auto mb-3 opacity-50" />
+            <p>No achievements unlocked yet. Complete workouts to earn them!</p>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

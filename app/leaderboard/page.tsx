@@ -3,7 +3,10 @@
 import { useState, useEffect } from 'react';
 import { AppShell } from '../components/AppShell';
 import { LeaderboardCard } from '../components/LeaderboardCard';
-import { Trophy, Calendar, Zap, Users } from 'lucide-react';
+import { ChallengeCard } from '../components/ChallengeCard';
+import { SAMPLE_CHALLENGES } from '@/lib/challenges';
+import { Trophy, Calendar, Zap, Users, Target } from 'lucide-react';
+import { useAppStore } from '@/lib/store';
 
 interface LeaderboardEntry {
   rank: number;
@@ -14,10 +17,13 @@ interface LeaderboardEntry {
 }
 
 export default function LeaderboardPage() {
-  const [activeTab, setActiveTab] = useState<'weekly' | 'monthly' | 'allTime'>('weekly');
+  const [activeTab, setActiveTab] = useState<'weekly' | 'monthly' | 'allTime' | 'challenges'>('weekly');
   const [weeklyLeaders, setWeeklyLeaders] = useState<LeaderboardEntry[]>([]);
   const [monthlyLeaders, setMonthlyLeaders] = useState<LeaderboardEntry[]>([]);
   const [allTimeLeaders, setAllTimeLeaders] = useState<LeaderboardEntry[]>([]);
+  const [challenges, setChallenges] = useState(SAMPLE_CHALLENGES);
+
+  const { user } = useAppStore();
 
   useEffect(() => {
     // Mock data - in real app, fetch from API
@@ -80,6 +86,7 @@ export default function LeaderboardPage() {
     { key: 'weekly' as const, label: 'Weekly', icon: Calendar },
     { key: 'monthly' as const, label: 'Monthly', icon: Zap },
     { key: 'allTime' as const, label: 'All Time', icon: Trophy },
+    { key: 'challenges' as const, label: 'Challenges', icon: Target },
   ];
 
   return (
@@ -141,12 +148,30 @@ export default function LeaderboardPage() {
           </div>
         </div>
 
-        {/* Leaderboard */}
-        <LeaderboardCard
-          entries={getCurrentLeaderboard()}
-          title={getTabTitle()}
-          scoreLabel="XP"
-        />
+        {/* Content based on active tab */}
+        {activeTab === 'challenges' ? (
+          <div className="space-y-6">
+            <div className="text-center">
+              <h2 className="text-xl font-bold text-fg mb-2">Active Challenges</h2>
+              <p className="text-text-secondary">Join challenges and compete with the community</p>
+            </div>
+
+            <div className="space-y-4">
+              {challenges.map((challenge) => (
+                <ChallengeCard
+                  key={challenge.challengeId}
+                  challenge={challenge}
+                />
+              ))}
+            </div>
+          </div>
+        ) : (
+          <LeaderboardCard
+            entries={getCurrentLeaderboard()}
+            title={getTabTitle()}
+            scoreLabel="XP"
+          />
+        )}
 
         {/* Your Rank */}
         <div className="glass-card p-6 rounded-xl">

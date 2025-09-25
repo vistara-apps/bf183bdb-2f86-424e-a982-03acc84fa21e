@@ -8,20 +8,28 @@ import { SAMPLE_WORKOUTS } from '@/lib/constants';
 import { WorkoutPlan } from '@/lib/types';
 import { Gamepad2, Zap, Trophy, Users, TrendingUp } from 'lucide-react';
 import { formatNumber } from '@/lib/utils';
+import { useAppStore } from '@/lib/store';
 
 export default function HomePage() {
   const [featuredWorkouts, setFeaturedWorkouts] = useState<WorkoutPlan[]>([]);
-  const [stats, setStats] = useState({
+  const { initializeUser, user, userProgress } = useAppStore();
+
+  const stats = {
     totalUsers: 1247,
-    workoutsCompleted: 8934,
-    totalXpEarned: 156789,
-    activeStreaks: 423
-  });
+    workoutsCompleted: userProgress.length,
+    totalXpEarned: user?.xp || 0,
+    activeStreaks: 423 // TODO: Calculate from userProgress
+  };
 
   useEffect(() => {
+    // Initialize user if not exists
+    if (!user) {
+      initializeUser();
+    }
+
     // Load featured workouts
     setFeaturedWorkouts(SAMPLE_WORKOUTS.slice(0, 2));
-  }, []);
+  }, [user, initializeUser]);
 
   const handleWorkoutSelect = (workout: WorkoutPlan) => {
     // Navigate to workout detail or start workout
