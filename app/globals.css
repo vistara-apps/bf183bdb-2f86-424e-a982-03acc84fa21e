@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Gaming Theme - Cyberpunk/Neon */
+  --color-bg: hsl(230, 15%, 10%);
+  --color-fg: hsl(220, 10%, 95%);
+  --color-accent: hsl(160, 70%, 45%);
+  --color-surface: hsl(230, 15%, 18%);
+  --color-text-primary: hsl(220, 10%, 95%);
+  --color-text-secondary: hsl(220, 10%, 80%);
+  --color-primary: hsl(240, 80%, 50%);
+  --color-secondary: hsl(280, 60%, 50%);
+  --color-success: hsl(160, 70%, 45%);
+  --color-warning: hsl(45, 90%, 60%);
+  --color-danger: hsl(0, 70%, 60%);
+}
+
+[data-theme="celo"] {
+  --color-bg: hsl(0, 0%, 0%);
+  --color-fg: hsl(0, 0%, 100%);
+  --color-accent: hsl(45, 90%, 60%);
+  --color-surface: hsl(0, 0%, 8%);
+  --color-text-primary: hsl(0, 0%, 100%);
+  --color-text-secondary: hsl(0, 0%, 80%);
+}
+
+[data-theme="solana"] {
+  --color-bg: hsl(260, 30%, 10%);
+  --color-fg: hsl(0, 0%, 100%);
+  --color-accent: hsl(280, 70%, 60%);
+  --color-surface: hsl(260, 30%, 18%);
+  --color-text-primary: hsl(0, 0%, 100%);
+  --color-text-secondary: hsl(0, 0%, 80%);
+}
+
+[data-theme="base"] {
+  --color-bg: hsl(220, 40%, 10%);
+  --color-fg: hsl(220, 10%, 95%);
+  --color-accent: hsl(220, 100%, 50%);
+  --color-surface: hsl(220, 40%, 18%);
+  --color-text-primary: hsl(220, 10%, 95%);
+  --color-text-secondary: hsl(220, 10%, 80%);
+}
+
+[data-theme="coinbase"] {
+  --color-bg: hsl(220, 50%, 8%);
+  --color-fg: hsl(220, 10%, 95%);
+  --color-accent: hsl(220, 100%, 50%);
+  --color-surface: hsl(220, 50%, 15%);
+  --color-text-primary: hsl(220, 10%, 95%);
+  --color-text-secondary: hsl(220, 10%, 80%);
+}
+
+@layer base {
+  * {
+    @apply border-gray-700;
+  }
+  
+  body {
+    @apply bg-bg text-fg font-sans antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-surface bg-opacity-80 backdrop-blur-sm border border-gray-700 border-opacity-50;
+  }
+
+  .neon-border {
+    @apply border border-accent shadow-lg;
+    box-shadow: 0 0 10px var(--color-accent);
+  }
+
+  .btn-primary {
+    @apply bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:from-purple-700 hover:to-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl;
+  }
+
+  .btn-secondary {
+    @apply bg-surface text-fg border border-gray-600 px-6 py-3 rounded-lg font-medium hover:bg-opacity-80 transition-all duration-200;
+  }
+
+  .btn-accent {
+    @apply bg-accent text-bg px-6 py-3 rounded-lg font-medium hover:bg-opacity-90 transition-all duration-200 shadow-lg hover:shadow-xl;
+  }
+
+  .metric-card {
+    @apply glass-card p-6 rounded-xl hover:bg-opacity-90 transition-all duration-200;
+  }
+
+  .xp-bar {
+    @apply bg-gray-700 rounded-full overflow-hidden;
+  }
+
+  .xp-fill {
+    @apply bg-gradient-to-r from-accent to-blue-500 h-full transition-all duration-500 ease-out;
+  }
+
+  .achievement-badge {
+    @apply bg-gradient-to-br from-yellow-400 to-orange-500 text-black px-3 py-1 rounded-full text-sm font-bold shadow-lg;
+  }
+
+  .workout-card {
+    @apply glass-card p-6 rounded-xl hover:neon-border transition-all duration-300 cursor-pointer;
+  }
+
+  .exercise-item {
+    @apply bg-surface bg-opacity-60 p-4 rounded-lg border border-gray-600 hover:border-accent transition-all duration-200;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-accent to-blue-400 bg-clip-text text-transparent;
+  }
+
+  .glow-text {
+    text-shadow: 0 0 10px var(--color-accent);
+  }
+
+  .animate-glow {
+    animation: pulse-glow 2s ease-in-out infinite alternate;
+  }
+}
